@@ -13,10 +13,9 @@ public class Main {
 	 private static ArrayList<Borrows> borrowedBooks = new ArrayList<>();
 
 	 public static void main(String[] args) {
-	    String patronFilePath = "./data/patronList.csv";
-	    String bookFilePath = "./data/booklist.csv";
-	    String borrowsFilePath = "./data/borrowedBooks.csv";
-	
+	    String patronFilePath = "./Library/data/patronList.csv";
+	    String bookFilePath = "./Library/data/booklist.csv";
+	    String borrowsFilePath = "./Library/data/borrowedBooks.csv";
 	    // Load patrons and books from CSV files
 	    loadPatrons(patronFilePath);
 	    loadBooks(bookFilePath);
@@ -178,7 +177,7 @@ public class Main {
         patrons.add(newPatron);
 
         // Save the new patron to the CSV file
-        Patron.addPatronToCSV("./data/patronList.csv", newPatron);
+        Patron.addPatronToCSV("./Library/data/patronList.csv", newPatron);
 
         System.out.println("New patron added successfully:");
         System.out.println(newPatron);
@@ -277,7 +276,7 @@ public class Main {
         books.add(newBook);
         
         // Save the new book to the CSV file
-        Book.addBookToCSV("./data/booklist.csv", newBook);
+        Book.addBookToCSV("./Library/data/booklist.csv", newBook);
         
         System.out.println("|*|  New book added successfully:");
         System.out.println(newBook);
@@ -304,7 +303,7 @@ public class Main {
             System.out.println("|*|  Book removed from in-memory list.");
             
             // Remove the book from the CSV file as well
-            Book.deleteBookByISBN("./data/booklist.csv", isbn);
+            Book.deleteBookByISBN("./Library/data/booklist.csv", isbn);
         } else {
             System.out.println("Book with ISBN " + isbn + " not found.");
         }
@@ -422,14 +421,14 @@ public class Main {
 
         // Update patron's books borrowed count
         patron.incrementBooksBorrowed();
-        Patron.updatePatronInCSV("./data/patronList.csv", patron);
+        Patron.updatePatronInCSV("./Library/data/patronList.csv", patron);
 
         // Update book availability
         bookToLoan.setAvailability(false);
-        Book.updateBookAvailabilityInCSV("./data/booklist.csv", bookToLoan);
+        Book.updateBookAvailabilityInCSV("./Library/data/booklist.csv", bookToLoan);
 
         // Save the loan to the borrowedBooks.csv file
-        Borrows.addBorrowToCSV("./data/borrowedBooks.csv", newBorrow);
+        Borrows.addBorrowToCSV("./Library/data/borrowedBooks.csv", newBorrow);
 
         System.out.println("Book loaned successfully. Due date: " + newBorrow.getDueDate());
     }
@@ -465,11 +464,11 @@ public class Main {
             bookToReturn.setAvailability(true);
 
             // Update the book availability in the CSV file
-            String bookFilePath = "./data/booklist.csv";
+            String bookFilePath = "./Library/data/booklist.csv";
             Book.updateBookAvailabilityInCSV(bookFilePath, bookToReturn);
 
             // Call the deleteBorrowRecord method to delete the record from the CSV file
-            String borrowFilePath = "./data/borrowedBooks.csv";
+            String borrowFilePath = "./Library/data/borrowedBooks.csv";
             String isbn = bookToReturn.getISBN();  // Get the ISBN from the book
             Borrows.deleteBorrowRecord(borrowFilePath, patronID, isbn);
 
